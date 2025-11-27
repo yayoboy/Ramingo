@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard'
 import { Sites } from './pages/Sites'
 import { Sections } from './pages/Sections'
 import { Entries } from './pages/Entries'
+import EntryEditor from './pages/EntryEditor'
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
             <Route
               path="sites/:siteId/sections/:sectionId/entries"
               element={<Entries />}
+            />
+            <Route
+              path="sites/:siteId/sections/:sectionId/entries/new"
+              element={<EntryEditor />}
+            />
+            <Route
+              path="sites/:siteId/sections/:sectionId/entries/:entryId/edit"
+              element={<EntryEditor />}
             />
           </Route>
 

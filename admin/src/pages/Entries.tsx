@@ -39,6 +39,12 @@ export function Entries() {
             Section: {sectionId} • Site: {siteId}
           </p>
         </div>
+        <Link
+          to={`/admin/sites/${siteId}/sections/${sectionId}/entries/new`}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+        >
+          + Create Entry
+        </Link>
       </div>
 
       <div className="bg-white rounded-lg shadow">
@@ -92,14 +98,18 @@ export function Entries() {
 
                   <div className="flex gap-3">
                     <Link
-                      to={`/admin/sites/${siteId}/entries/${entry.id}`}
+                      to={`/admin/sites/${siteId}/sections/${sectionId}/entries/${entry.id}/edit`}
                       className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
-                      Edit Entry
+                      Edit
                     </Link>
 
                     <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
                       Preview
+                    </button>
+
+                    <button className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition">
+                      Delete
                     </button>
                   </div>
                 </div>

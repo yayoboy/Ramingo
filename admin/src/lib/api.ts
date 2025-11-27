@@ -151,4 +151,26 @@ export const entriesApi = {
   },
 }
 
+// Media API
+export const mediaApi = {
+  getAll: async (siteId: string) => {
+    const response = await api.get(`/sites/${siteId}/media`)
+    return response.data
+  },
+
+  upload: async (siteId: string, files: FormData) => {
+    const response = await api.post(`/sites/${siteId}/media`, files, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return response.data
+  },
+
+  delete: async (siteId: string, fileId: string) => {
+    const response = await api.delete(`/sites/${siteId}/media/${fileId}`)
+    return response.data
+  },
+}
+
 export default api

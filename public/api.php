@@ -111,6 +111,11 @@ $router->put('/api/sites/{siteId}/entries/{id}', [\Ramingo\Api\Controllers\Entry
 $router->delete('/api/sites/{siteId}/entries/{id}', [\Ramingo\Api\Controllers\EntryController::class, 'destroy']);
 $router->post('/api/sites/{siteId}/sections/{sectionId}/entries/reorder', [\Ramingo\Api\Controllers\EntryController::class, 'reorder']);
 
+// Media
+$router->get('/api/sites/{siteId}/media', [\Ramingo\Api\Controllers\MediaController::class, 'index']);
+$router->post('/api/sites/{siteId}/media', [\Ramingo\Api\Controllers\MediaController::class, 'upload']);
+$router->delete('/api/sites/{siteId}/media/{fileId}', [\Ramingo\Api\Controllers\MediaController::class, 'delete']);
+
 // Test endpoints
 $router->get('/api/test', function(Request $request) {
     return Response::json([
