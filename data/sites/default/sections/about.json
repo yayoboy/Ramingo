@@ -1,0 +1,21 @@
+{
+    "id": "about",
+    "name": "About",
+    "slug": "about",
+    "type": "page",
+    "template": "default",
+    "settings": {
+        "layout": "default"
+    },
+    "seo": {
+        "title": "About",
+        "description": ""
+    },
+    "order": 2,
+    "published": true,
+    "entries": [
+        "entry-404522352759d653"
+    ],
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

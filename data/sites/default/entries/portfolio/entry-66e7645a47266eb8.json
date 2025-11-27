@@ -1,0 +1,27 @@
+{
+    "id": "entry-66e7645a47266eb8",
+    "section": "portfolio",
+    "slug": "brand-identity",
+    "title": "Brand Identity",
+    "content": {
+        "description": "<p>Full brand identity package including logo and visual guidelines.</p>",
+        "images": [],
+        "metadata": {
+            "tags": [
+                "branding",
+                "graphic design"
+            ],
+            "year": "2025"
+        }
+    },
+    "seo": {
+        "title": "Brand Identity",
+        "description": "",
+        "ogImage": ""
+    },
+    "published": true,
+    "featured": false,
+    "order": 2,
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

@@ -1,0 +1,27 @@
+{
+    "id": "entry-4bfc98a448d2b3d2",
+    "section": "portfolio",
+    "slug": "website-redesign",
+    "title": "Website Redesign",
+    "content": {
+        "description": "<p>Complete redesign of a corporate website with modern aesthetics.</p>",
+        "images": [],
+        "metadata": {
+            "tags": [
+                "web design",
+                "ui/ux"
+            ],
+            "year": "2025"
+        }
+    },
+    "seo": {
+        "title": "Website Redesign",
+        "description": "",
+        "ogImage": ""
+    },
+    "published": true,
+    "featured": true,
+    "order": 0,
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

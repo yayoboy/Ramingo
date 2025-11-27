@@ -1,0 +1,27 @@
+{
+    "id": "entry-f1865c0f0de0f769",
+    "section": "portfolio",
+    "slug": "mobile-app-design",
+    "title": "Mobile App Design",
+    "content": {
+        "description": "<p>User interface design for a productivity mobile application.</p>",
+        "images": [],
+        "metadata": {
+            "tags": [
+                "mobile",
+                "ui/ux"
+            ],
+            "year": "2025"
+        }
+    },
+    "seo": {
+        "title": "Mobile App Design",
+        "description": "",
+        "ogImage": ""
+    },
+    "published": true,
+    "featured": false,
+    "order": 1,
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

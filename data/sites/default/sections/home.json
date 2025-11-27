@@ -1,0 +1,21 @@
+{
+    "id": "home",
+    "name": "Home",
+    "slug": "home",
+    "type": "page",
+    "template": "default",
+    "settings": {
+        "layout": "default"
+    },
+    "seo": {
+        "title": "Home",
+        "description": ""
+    },
+    "order": 0,
+    "published": true,
+    "entries": [
+        "entry-7cdde8a7a585b6e2"
+    ],
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

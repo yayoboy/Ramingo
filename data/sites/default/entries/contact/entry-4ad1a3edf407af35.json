@@ -1,0 +1,22 @@
+{
+    "id": "entry-4ad1a3edf407af35",
+    "section": "contact",
+    "slug": "get-in-touch",
+    "title": "Get In Touch",
+    "content": {
+        "description": "<h2>Contact Me</h2><p>Let's work together on your next project.</p>",
+        "metadata": {
+            "email": "hello@example.com"
+        }
+    },
+    "seo": {
+        "title": "Get In Touch",
+        "description": "",
+        "ogImage": ""
+    },
+    "published": true,
+    "featured": false,
+    "order": 0,
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

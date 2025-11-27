@@ -1,0 +1,26 @@
+{
+    "id": "portfolio",
+    "name": "Portfolio",
+    "slug": "portfolio",
+    "type": "gallery",
+    "template": "gallery",
+    "settings": {
+        "layout": "grid",
+        "columns": 3,
+        "showTitles": true,
+        "enableLightbox": true
+    },
+    "seo": {
+        "title": "Portfolio",
+        "description": ""
+    },
+    "order": 1,
+    "published": true,
+    "entries": [
+        "entry-4bfc98a448d2b3d2",
+        "entry-66e7645a47266eb8",
+        "entry-f1865c0f0de0f769"
+    ],
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

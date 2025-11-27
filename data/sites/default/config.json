@@ -1,0 +1,28 @@
+{
+    "id": "default",
+    "name": "My Portfolio",
+    "domain": "localhost",
+    "theme": "default",
+    "settings": {
+        "title": "My Creative Portfolio",
+        "description": "Welcome to my portfolio website",
+        "language": "en",
+        "timezone": "UTC",
+        "seo": {
+            "enableSitemap": true,
+            "enableRobots": true
+        },
+        "fonts": {
+            "heading": "Playfair Display",
+            "body": "Inter"
+        },
+        "colors": {
+            "primary": "#1a1a1a",
+            "secondary": "#ffffff",
+            "accent": "#3b82f6"
+        }
+    },
+    "navigation": [],
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

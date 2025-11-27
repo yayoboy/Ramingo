@@ -1,0 +1,21 @@
+{
+    "id": "contact",
+    "name": "Contact",
+    "slug": "contact",
+    "type": "page",
+    "template": "default",
+    "settings": {
+        "layout": "default"
+    },
+    "seo": {
+        "title": "Contact",
+        "description": ""
+    },
+    "order": 3,
+    "published": true,
+    "entries": [
+        "entry-4ad1a3edf407af35"
+    ],
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

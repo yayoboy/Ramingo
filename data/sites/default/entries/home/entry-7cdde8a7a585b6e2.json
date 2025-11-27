@@ -1,0 +1,21 @@
+{
+    "id": "entry-7cdde8a7a585b6e2",
+    "section": "home",
+    "slug": "welcome",
+    "title": "Welcome",
+    "content": {
+        "description": "<h1>Welcome to My Portfolio</h1><p>I'm a creative professional showcasing my work.</p>",
+        "images": [],
+        "metadata": []
+    },
+    "seo": {
+        "title": "Welcome",
+        "description": "",
+        "ogImage": ""
+    },
+    "published": true,
+    "featured": false,
+    "order": 0,
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

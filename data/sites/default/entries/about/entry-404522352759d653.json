@@ -1,0 +1,27 @@
+{
+    "id": "entry-404522352759d653",
+    "section": "about",
+    "slug": "about-me",
+    "title": "About Me",
+    "content": {
+        "description": "<h2>About Me</h2><p>I'm a passionate designer and developer with years of experience creating beautiful digital experiences.</p>",
+        "images": [],
+        "metadata": {
+            "skills": [
+                "Design",
+                "Development",
+                "Photography"
+            ]
+        }
+    },
+    "seo": {
+        "title": "About Me",
+        "description": "",
+        "ogImage": ""
+    },
+    "published": true,
+    "featured": false,
+    "order": 0,
+    "createdAt": "2025-11-27T12:06:11+00:00",
+    "updatedAt": "2025-11-27T12:06:11+00:00"
+}

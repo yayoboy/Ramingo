@@ -51,7 +51,30 @@ $router->get('/api', function(Request $request) {
     ]);
 });
 
-// Test endpoint
+// Sites
+$router->get('/api/sites', [\Ramingo\Api\Controllers\SiteController::class, 'index']);
+$router->get('/api/sites/{id}', [\Ramingo\Api\Controllers\SiteController::class, 'show']);
+$router->post('/api/sites', [\Ramingo\Api\Controllers\SiteController::class, 'store']);
+$router->put('/api/sites/{id}', [\Ramingo\Api\Controllers\SiteController::class, 'update']);
+$router->delete('/api/sites/{id}', [\Ramingo\Api\Controllers\SiteController::class, 'destroy']);
+
+// Sections
+$router->get('/api/sites/{siteId}/sections', [\Ramingo\Api\Controllers\SectionController::class, 'index']);
+$router->get('/api/sites/{siteId}/sections/{id}', [\Ramingo\Api\Controllers\SectionController::class, 'show']);
+$router->post('/api/sites/{siteId}/sections', [\Ramingo\Api\Controllers\SectionController::class, 'store']);
+$router->put('/api/sites/{siteId}/sections/{id}', [\Ramingo\Api\Controllers\SectionController::class, 'update']);
+$router->delete('/api/sites/{siteId}/sections/{id}', [\Ramingo\Api\Controllers\SectionController::class, 'destroy']);
+$router->post('/api/sites/{siteId}/sections/reorder', [\Ramingo\Api\Controllers\SectionController::class, 'reorder']);
+
+// Entries
+$router->get('/api/sites/{siteId}/sections/{sectionId}/entries', [\Ramingo\Api\Controllers\EntryController::class, 'index']);
+$router->get('/api/sites/{siteId}/entries/{id}', [\Ramingo\Api\Controllers\EntryController::class, 'show']);
+$router->post('/api/sites/{siteId}/sections/{sectionId}/entries', [\Ramingo\Api\Controllers\EntryController::class, 'store']);
+$router->put('/api/sites/{siteId}/entries/{id}', [\Ramingo\Api\Controllers\EntryController::class, 'update']);
+$router->delete('/api/sites/{siteId}/entries/{id}', [\Ramingo\Api\Controllers\EntryController::class, 'destroy']);
+$router->post('/api/sites/{siteId}/sections/{sectionId}/entries/reorder', [\Ramingo\Api\Controllers\EntryController::class, 'reorder']);
+
+// Test endpoints
 $router->get('/api/test', function(Request $request) {
     return Response::json([
         'message' => 'API is working!',
@@ -61,7 +84,6 @@ $router->get('/api/test', function(Request $request) {
     ]);
 });
 
-// Test POST endpoint
 $router->post('/api/test', function(Request $request) {
     return Response::json([
         'message' => 'POST request received',
