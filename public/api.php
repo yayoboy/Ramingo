@@ -47,9 +47,46 @@ $router->get('/api', function(Request $request) {
         'endpoints' => [
             'GET /api/health' => 'Health check',
             'GET /api' => 'API information',
+            'POST /api/auth/login' => 'Login',
+            'POST /api/auth/logout' => 'Logout',
+            'GET /api/auth/me' => 'Get current user (protected)',
+            'GET /api/sites' => 'List sites (protected)',
+            'POST /api/sites' => 'Create site (protected)',
         ]
     ]);
 });
+
+// Auth routes (public)
+$router->post('/api/auth/login', [\Ramingo\Api\Controllers\AuthController::class, 'login']);
+$router->post('/api/auth/logout', [\Ramingo\Api\Controllers\AuthController::class, 'logout']);
+$router->post('/api/auth/register', [\Ramingo\Api\Controllers\AuthController::class, 'register']);
+
+// Protected routes - require authentication
+$authMiddleware = new \Ramingo\Api\Middleware\AuthMiddleware();
+$router->addMiddleware(function($request) use ($authMiddleware) {
+    $path = $request->getPath();
+
+    // Public routes that don't require authentication
+    $publicPaths = [
+        '/api',
+        '/api/health',
+        '/api/test',
+        '/api/auth/login',
+        '/api/auth/logout',
+        '/api/auth/register'
+    ];
+
+    // Check for exact match
+    if (in_array($path, $publicPaths, true)) {
+        return null; // Continue without auth
+    }
+
+    // Require authentication for all other routes
+    return $authMiddleware->handle($request);
+});
+
+// Protected: Current user
+$router->get('/api/auth/me', [\Ramingo\Api\Controllers\AuthController::class, 'me']);
 
 // Sites
 $router->get('/api/sites', [\Ramingo\Api\Controllers\SiteController::class, 'index']);

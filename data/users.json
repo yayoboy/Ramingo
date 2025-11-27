@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "id": "usr-c8db80a4b3eaf4a6",
+            "username": "admin",
+            "email": "admin@ramingo.local",
+            "passwordHash": "$2y$12$5iEbDkih6VIxwQGyujqL9.Sj3NB5g9EKAdfPooTWl.U6mPBQhg9PO",
+            "role": "admin",
+            "sites": [
+                "default"
+            ],
+            "preferences": {
+                "theme": "light",
+                "language": "en"
+            },
+            "createdAt": "2025-11-27T12:56:38+00:00",
+            "lastLogin": "2025-11-27T12:57:02+00:00"
+        }
+    ]
+}
