@@ -63,6 +63,16 @@ class Request
         return isset($this->files[$key]) && $this->files[$key]['error'] === UPLOAD_ERR_OK;
     }
 
+    public function getScheme(): string
+    {
+        return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    }
+
+    public function getHost(): string
+    {
+        return $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'localhost';
+    }
+
     private function parsePath(): string
     {
         $uri = $_SERVER['REQUEST_URI'] ?? '/';

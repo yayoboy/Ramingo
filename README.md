@@ -1,333 +1,345 @@
 # Ramingo CMS
 
-A modern, flat-file CMS inspired by Berta CMS, built with PHP 8.3+ and React.
+> A modern, flat-file content management system inspired by Berta CMS, built with PHP 8.2+ and React 18.
 
-## Overview
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D8.2-blue)](https://www.php.net/)
+[![React Version](https://img.shields.io/badge/react-18-blue)](https://react.dev/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Ramingo CMS is a database-free content management system that stores all content in JSON files. It features a modern React-based admin panel with inline WYSIWYG editing, drag-and-drop media management, and a powerful theming system.
+## 🚀 Features
 
-### Key Features
+### Content Management
+- **Flat-file storage** - No database required, all data stored in JSON files
+- **Multi-section support** - Organize content into pages, galleries, blogs
+- **Rich text editor** - Tiptap WYSIWYG editor with full formatting support
+- **Media management** - Upload and organize images with built-in library
+- **Google Fonts integration** - Choose from 15 popular fonts with live preview
+- **Custom typography** - Apply different fonts per entry
+- **Tag system** - Categorize and organize content
+- **SEO optimization** - Meta tags, OG images, sitemaps, RSS feeds
 
-- **Flat-File Storage**: No database required - all content stored in JSON files
-- **WYSIWYG Inline Editing**: Edit content directly on the published site
-- **Modern Admin Panel**: React + shadcn/ui + Tailwind CSS
-- **Responsive Themes**: Mobile-first, customizable templates
-- **Media Management**: Drag-and-drop image uploads with automatic processing
-- **Multisite Support**: Manage multiple sites from one installation
-- **SEO Optimized**: Built-in SEO tools and sitemap generation
-- **Git-Friendly**: Version control your content alongside your code
-- **Static Export**: Generate static HTML for deployment anywhere
-- **Google Fonts Integration**: 500+ fonts available
-- **Shop Integration**: PayPal and e-commerce support (planned)
+### Admin Panel
+- **React 18** - Modern, responsive admin interface
+- **Real-time preview** - See changes before publishing
+- **Drag & drop** - Reorder sections and entries
+- **Image galleries** - Multiple images per entry
+- **Published/Featured** - Control content visibility
+- **User authentication** - JWT-based secure login
 
-## Technology Stack
+### Frontend
+- **Template system** - PHP-based template engine
+- **Responsive themes** - Mobile-first design
+- **Multiple layouts** - Page, gallery, blog templates
+- **Dynamic navigation** - Auto-generated from sections
+- **SEO-friendly URLs** - Clean, readable paths
+- **RSS feeds** - Per-section RSS support
+- **Sitemap generation** - Automatic XML sitemap
 
-### Backend
-- PHP 8.3+
-- JSON flat-file storage
-- Composer for dependency management
-- Apache with mod_rewrite
+### Technical Features
+- **PHP 8.2+** - Modern PHP with type safety
+- **PSR-4 autoloading** - Organized, namespaced code
+- **RESTful API** - JSON API for all operations
+- **JWT authentication** - Secure, stateless auth
+- **Middleware system** - Flexible request processing
+- **No database** - Simple file-based storage
 
-### Frontend Admin
-- React 18 with TypeScript
-- Vite for build tooling
-- shadcn/ui component library
-- Tailwind CSS for styling
-- Tiptap for WYSIWYG editing
-- TanStack Query for data fetching
-- Zustand for state management
+## 📋 Requirements
 
-### Frontend Public Site
-- PHP templating engine
-- Responsive HTML/CSS
-- Minimal JavaScript
-- SEO-friendly output
-
-## Documentation
-
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Complete system architecture, tech stack decisions, data structures, and API design
-- **[IMPLEMENTATION_ROADMAP.md](./IMPLEMENTATION_ROADMAP.md)** - Detailed phase-by-phase implementation guide with code examples
-
-## Project Status
-
-🚧 **Status**: Research & Planning Phase
-
-This repository currently contains comprehensive research documentation and architectural planning for the Ramingo CMS project. Implementation is ready to begin based on the detailed roadmap provided.
-
-### Completed
-- ✅ Requirements analysis
-- ✅ Technology stack selection
-- ✅ System architecture design
-- ✅ Data structure definitions
-- ✅ API endpoint design
-- ✅ Implementation roadmap with code examples
-
-### Next Steps
-1. Initialize project structure (Phase 1: Week 1-2)
-2. Implement data layer and file storage (Phase 2: Week 3-4)
-3. Build authentication system (Phase 3: Week 5)
-4. Develop admin panel UI (Phase 4: Week 6-8)
-5. Create template engine and themes (Phase 5: Week 9-10)
-6. Add advanced features (Phase 6: Week 11-13)
-7. Testing, documentation, and deployment (Phase 7: Week 14-17)
-
-## Quick Start (After Implementation)
-
-### Requirements
-- PHP 8.3 or higher
-- Apache with mod_rewrite enabled
-- GD library for image processing
-- Composer
+- PHP 8.2 or higher
 - Node.js 18+ and npm
+- Composer
+- Web server (Apache/Nginx) or PHP built-in server
 
-### Installation
+## 🔧 Installation
 
+### 1. Clone the repository
 ```bash
-# Clone the repository
 git clone https://github.com/yourusername/ramingo.git
 cd ramingo
+```
 
-# Install PHP dependencies
+### 2. Install PHP dependencies
+```bash
 composer install
+```
 
-# Configure environment
-cp .env.example .env
-# Edit .env with your settings
-
-# Initialize default site
-php scripts/init-site.php
-
-# Install and build admin panel
+### 3. Install and build admin panel
+```bash
 cd admin
 npm install
 npm run build
-
-# Start development server
 cd ..
-php -S localhost:8000 -t public
 ```
 
-Access the admin panel at `http://localhost:8000/admin`
-
-### Development Mode
-
+### 4. Initialize site and user
 ```bash
-# Terminal 1: PHP backend
-php -S localhost:8000 -t public
-
-# Terminal 2: React admin dev server
-cd admin
-npm run dev
+php scripts/init-site.php
+php scripts/init-user.php
 ```
 
-Admin panel: `http://localhost:5173`
-Public site: `http://localhost:8000`
-API: `http://localhost:8000/api`
+This creates:
+- Default site with sample sections and entries
+- Admin user (username: `admin`, password: `admin123`)
 
-## Project Structure
+### 5. Start the development server
+```bash
+php -S localhost:8000 -t public router.php
+```
+
+## 🎯 Quick Start
+
+### Access the site
+- **Public site**: http://localhost:8000
+- **Admin panel**: http://localhost:8000/admin
+- **API**: http://localhost:8000/api
+
+### Default credentials
+- Username: `admin`
+- Password: `admin123`
+
+**⚠️ Change these credentials immediately in production!**
+
+## 📁 Project Structure
 
 ```
 ramingo/
-├── admin/              # React admin panel
-├── api/                # PHP API controllers and services
-├── config/             # Configuration files
-├── data/               # Flat-file storage (git-tracked)
-├── public/             # Web root
-├── scripts/            # Utility scripts
-├── src/                # Core PHP classes
-├── tests/              # Test suite
-└── themes/             # Site themes
+├── admin/                 # React admin panel
+│   ├── src/
+│   │   ├── components/   # React components
+│   │   ├── contexts/     # React contexts
+│   │   ├── lib/          # API client
+│   │   └── pages/        # Admin pages
+│   └── dist/             # Built admin assets
+├── api/                  # API controllers and models
+│   ├── Controllers/      # API endpoints
+│   ├── Models/           # Data models
+│   ├── Middleware/       # Auth middleware
+│   └── Services/         # FileStorage service
+├── public/               # Public web root
+│   ├── themes/          # Frontend themes
+│   │   └── default/     # Default theme
+│   ├── index.php        # Frontend router
+│   └── api.php          # API router
+├── src/                  # Core framework
+│   ├── Core/            # Application core
+│   ├── Template/        # Template engine
+│   └── Utils/           # Utilities
+├── storage/             # Data storage
+│   ├── sites/           # Site data
+│   └── users/           # User data
+└── scripts/             # Utility scripts
 ```
 
-## Architecture Highlights
+## 🎨 Creating Content
 
-### Flat-File Storage
-All content is stored in JSON files under the `data/` directory:
-- `data/sites/{site-id}/config.json` - Site configuration
-- `data/sites/{site-id}/sections/*.json` - Section definitions
-- `data/sites/{site-id}/entries/{section}/*.json` - Content entries
-- `data/sites/{site-id}/media/` - Uploaded media files
-- `data/users.json` - User accounts
+### 1. Log in to the admin panel
+Navigate to `/admin` and log in with your credentials.
 
-### API-First Design
-RESTful API endpoints for all operations:
-- `/api/sites` - Site management
-- `/api/sites/{id}/sections` - Section management
-- `/api/sites/{id}/entries` - Entry/content management
-- `/api/media/upload` - Media handling
-- `/api/auth/*` - Authentication
+### 2. Create a new section
+1. Go to "Sites" → Select your site
+2. Click "Sections"
+3. Choose section type (Page, Gallery, or Blog)
+4. Configure settings
 
-### Component Architecture
-- **Router**: URL routing for public site and API
-- **FileStorage**: JSON file read/write operations
-- **Template Engine**: PHP template rendering
-- **Media Service**: Image processing and optimization
-- **Auth System**: JWT-based authentication
+### 3. Add entries
+1. Navigate to the section
+2. Click "Create Entry"
+3. Add title, content, images
+4. Choose custom font (optional)
+5. Add tags and SEO metadata
+6. Publish when ready
 
-## Features in Detail
+### 4. Customize appearance
+1. Go to "Settings" → "Theme"
+2. Choose Google Fonts for headings and body
+3. Set color scheme
+4. Save changes
 
-### WYSIWYG Editing
-Inline content editing using Tiptap (ProseMirror):
-- Rich text formatting
-- Image embedding
-- Link management
-- Custom blocks
-- Live preview
+## 🔌 API Endpoints
 
-### Media Management
-Drag-and-drop media handling:
-- Multi-file uploads
-- Automatic thumbnail generation
-- Image optimization
-- WebP conversion
-- Gallery organization
+### Authentication
+```
+POST   /api/auth/login      # Login
+POST   /api/auth/logout     # Logout
+POST   /api/auth/register   # Register (if enabled)
+GET    /api/auth/me         # Get current user
+```
 
-### Theme System
-Customizable, swappable themes:
-- PHP template files
-- JSON theme configuration
-- Google Fonts integration
-- Custom color schemes
-- Responsive layouts
+### Sites
+```
+GET    /api/sites           # List all sites
+GET    /api/sites/{id}      # Get site
+PUT    /api/sites/{id}      # Update site
+```
 
-### Multisite Management
-Run multiple sites from one installation:
-- Separate content directories
-- Domain-based routing
-- Shared admin panel
-- Per-site themes and settings
+### Sections
+```
+GET    /api/sites/{siteId}/sections                # List sections
+GET    /api/sites/{siteId}/sections/{id}           # Get section
+POST   /api/sites/{siteId}/sections                # Create section
+PUT    /api/sites/{siteId}/sections/{id}           # Update section
+DELETE /api/sites/{siteId}/sections/{id}           # Delete section
+```
 
-### SEO Tools
-Built-in search engine optimization:
-- Meta tags management
-- Sitemap generation
-- Robots.txt configuration
-- Social media cards
-- Structured data
+### Entries
+```
+GET    /api/sites/{siteId}/sections/{sectionId}/entries     # List entries
+POST   /api/sites/{siteId}/sections/{sectionId}/entries     # Create entry
+PUT    /api/sites/{siteId}/entries/{id}                     # Update entry
+DELETE /api/sites/{siteId}/entries/{id}                     # Delete entry
+```
 
-### Static Export
-Generate static HTML:
+### Media
+```
+GET    /api/sites/{siteId}/media           # List media
+POST   /api/sites/{siteId}/media           # Upload files
+DELETE /api/sites/{siteId}/media/{fileId}  # Delete file
+```
+
+### Settings
+```
+GET    /api/sites/{siteId}/settings              # Get settings
+PUT    /api/sites/{siteId}/settings              # Update settings
+GET    /api/sites/{siteId}/settings/theme        # Get theme
+PUT    /api/sites/{siteId}/settings/theme        # Update theme
+```
+
+## 🌐 Frontend Routes
+
+```
+/                           # Homepage
+/{section}                  # Section listing
+/{section}/{entry}          # Entry detail
+/sitemap.xml                # XML sitemap
+/robots.txt                 # Robots.txt
+/{section}/feed.xml         # RSS feed for section
+```
+
+## 🎨 Theming
+
+### Creating a custom theme
+
+1. Copy the default theme:
 ```bash
-php scripts/export-static.php --site=default --output=./dist
-```
-Deploy to Netlify, Vercel, or any static host.
-
-## Development Principles
-
-### Simplicity First
-- Minimal dependencies
-- Straightforward code structure
-- No over-engineering
-- Easy to understand and modify
-
-### Performance Oriented
-- Flat-file performance advantages
-- Caching strategies
-- Optimized images
-- Minimal JavaScript
-
-### Developer Experience
-- Git-friendly content versioning
-- Docker support
-- Clear documentation
-- Type-safe TypeScript
-- Modern tooling
-
-## Deployment
-
-### Traditional Hosting
-1. Upload files via FTP/SFTP
-2. Configure Apache (`.htaccess` included)
-3. Set file permissions (755 for dirs, 644 for files)
-4. Copy and configure `.env`
-5. Run `composer install --no-dev`
-6. Build admin: `cd admin && npm run build`
-
-### Docker
-```bash
-docker-compose up -d
+cp -r public/themes/default public/themes/mytheme
 ```
 
-### Static Export
-```bash
-php scripts/export-static.php --site=default --output=./dist
-# Deploy dist/ to any static host
+2. Customize templates:
+```
+themes/mytheme/
+├── layouts/
+│   └── main.php          # Main HTML wrapper
+├── templates/
+│   ├── page.php          # Page template
+│   ├── gallery.php       # Gallery template
+│   ├── blog.php          # Blog template
+│   └── entry.php         # Entry detail
+├── partials/
+│   ├── header.php        # Site header
+│   └── footer.php        # Site footer
+└── assets/
+    ├── css/style.css     # Theme styles
+    └── js/main.js        # Theme scripts
 ```
 
-## Security
+3. Update site theme in database:
+```json
+{
+  "theme": "mytheme"
+}
+```
 
-- JWT authentication for API
-- Password hashing with bcrypt
-- CSRF protection
-- Input sanitization
-- File upload validation
-- Restricted file permissions
-- `.gitignore` for sensitive data
+## 🔒 Security
 
-## Testing
+### Production Checklist
+
+- [ ] Change default admin password
+- [ ] Set `DEBUG` to `false` in config
+- [ ] Configure proper file permissions
+- [ ] Use HTTPS
+- [ ] Configure CORS properly
+- [ ] Review JWT secret key
+- [ ] Enable PHP opcache
+- [ ] Disable directory listing
+- [ ] Keep dependencies updated
+
+### File Permissions
 
 ```bash
-# Run PHP tests
-./vendor/bin/phpunit
-
-# Run admin panel tests
-cd admin
-npm test
+chmod 755 public
+chmod 755 storage
+chmod 644 storage/**/*.json
 ```
 
-## Contributing
+## 🚀 Deployment
 
-Contributions are welcome! Please read the architecture and implementation roadmap documents before contributing.
+### Production Environment
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
+1. **Build admin panel for production**
+```bash
+cd admin && npm run build
+```
 
-## License
+2. **Configure web server**
 
-[MIT License](LICENSE)
+**Apache (.htaccess)**
+```apache
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+```
 
-## Credits
+**Nginx**
+```nginx
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
 
-Inspired by [Berta CMS](https://www.berta.me/) - A simple, elegant CMS for creatives.
+location /api {
+    try_files $uri $uri/ /api.php?$query_string;
+}
+```
 
-## Support
+3. **Set environment to production**
+```php
+// config/app.php
+return [
+    'env' => 'production',
+    'debug' => false,
+    // ...
+];
+```
 
-- Documentation: See `ARCHITECTURE.md` and `IMPLEMENTATION_ROADMAP.md`
-- Issues: [GitHub Issues](https://github.com/yourusername/ramingo/issues)
-- Discussions: [GitHub Discussions](https://github.com/yourusername/ramingo/discussions)
+## 📊 Performance
 
-## Roadmap
+### Optimization Tips
 
-### Phase 1-3 (Weeks 1-5)
-- ✅ Planning and architecture
-- 🔄 Core backend implementation
-- 🔄 Data layer and file storage
-- 🔄 Authentication system
+1. **Enable PHP OPcache**
+2. **Use HTTP/2**
+3. **Enable gzip compression**
+4. **Optimize images before upload**
+5. **Use CDN for static assets**
+6. **Implement browser caching**
 
-### Phase 4-5 (Weeks 6-10)
-- ⏳ Admin panel UI
-- ⏳ WYSIWYG editor integration
-- ⏳ Media management
-- ⏳ Template engine and themes
+## 🤝 Contributing
 
-### Phase 6-7 (Weeks 11-17)
-- ⏳ Multisite support
-- ⏳ SEO tools
-- ⏳ Static export
-- ⏳ Shop integration
-- ⏳ Testing and documentation
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### Future
-- Plugin system
-- Advanced caching
-- Collaborative editing
-- Version history
-- Content scheduling
-- Advanced analytics
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Credits
+
+Inspired by [Berta CMS](https://www.berta.me/), built with modern technologies.
+
+## 📞 Support
+
+For issues and questions:
+- GitHub Issues: [github.com/yourusername/ramingo/issues](https://github.com/yourusername/ramingo/issues)
+- Documentation: [docs.ramingo.dev](https://docs.ramingo.dev)
 
 ---
 
-Built with ❤️ for creators, designers, and developers who value simplicity.
+**Built with ❤️ using PHP, React, and modern web technologies.**

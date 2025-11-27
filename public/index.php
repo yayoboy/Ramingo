@@ -12,6 +12,8 @@ use Ramingo\Template\Engine;
 use Ramingo\Api\Models\Site;
 use Ramingo\Api\Models\Section;
 use Ramingo\Api\Models\Entry;
+use Ramingo\Utils\SitemapGenerator;
+use Ramingo\Utils\RSSGenerator;
 
 // Initialize application
 $app = Application::getInstance(__DIR__ . '/..');
@@ -29,6 +31,43 @@ if (!$site) {
     http_response_code(404);
     echo '<!DOCTYPE html><html><head><title>Site Not Found</title></head><body><h1>Site Not Found</h1><p>The site has not been configured yet.</p><p><a href="/admin">Go to Admin Panel</a></p></body></html>';
     exit;
+}
+
+// Special routes - Sitemap, Robots, RSS
+if ($path === 'sitemap.xml') {
+    header('Content-Type: application/xml; charset=utf-8');
+    $generator = new SitemapGenerator($request->getScheme() . '://' . $request->getHost());
+    echo $generator->generate($site['id']);
+    exit;
+}
+
+if ($path === 'robots.txt') {
+    header('Content-Type: text/plain; charset=utf-8');
+    $generator = new SitemapGenerator($request->getScheme() . '://' . $request->getHost());
+    echo $generator->generateRobotsTxt($site['id']);
+    exit;
+}
+
+// RSS feed for sections (e.g., /blog/feed.xml)
+if (count($segments) === 2 && $segments[1] === 'feed.xml') {
+    $sectionSlug = $segments[0];
+    $sectionModel = new Section();
+    $sections = $sectionModel->all($site['id']);
+
+    $section = null;
+    foreach ($sections as $s) {
+        if ($s['slug'] === $sectionSlug) {
+            $section = $s;
+            break;
+        }
+    }
+
+    if ($section) {
+        header('Content-Type: application/xml; charset=utf-8');
+        $generator = new RSSGenerator($request->getScheme() . '://' . $request->getHost());
+        echo $generator->generate($site['id'], $section['id']);
+        exit;
+    }
 }
 
 // Load all sections for navigation

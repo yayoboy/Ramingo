@@ -116,6 +116,12 @@ $router->get('/api/sites/{siteId}/media', [\Ramingo\Api\Controllers\MediaControl
 $router->post('/api/sites/{siteId}/media', [\Ramingo\Api\Controllers\MediaController::class, 'upload']);
 $router->delete('/api/sites/{siteId}/media/{fileId}', [\Ramingo\Api\Controllers\MediaController::class, 'delete']);
 
+// Settings
+$router->get('/api/sites/{siteId}/settings', [\Ramingo\Api\Controllers\SettingsController::class, 'show']);
+$router->put('/api/sites/{siteId}/settings', [\Ramingo\Api\Controllers\SettingsController::class, 'update']);
+$router->get('/api/sites/{siteId}/settings/theme', [\Ramingo\Api\Controllers\SettingsController::class, 'getTheme']);
+$router->put('/api/sites/{siteId}/settings/theme', [\Ramingo\Api\Controllers\SettingsController::class, 'updateTheme']);
+
 // Test endpoints
 $router->get('/api/test', function(Request $request) {
     return Response::json([
