@@ -40,6 +40,22 @@ class Entry
     }
 
     /**
+     * Find an entry by slug in a specific section
+     */
+    public function findBySlug(string $siteId, string $sectionId, string $slug): ?array
+    {
+        $entries = $this->all($siteId, $sectionId);
+
+        foreach ($entries as $entry) {
+            if ($entry['slug'] === $slug) {
+                return $entry;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get all entries for a section
      */
     public function all(string $siteId, string $sectionId): array
