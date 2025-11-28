@@ -15,8 +15,11 @@ interface StyleEditorProps {
   onStylesChange: (styles: any) => void
 }
 
+type MobileTab = 'preview' | 'global' | 'block'
+
 export default function StyleEditor({ content, styles, onContentChange, onStylesChange }: StyleEditorProps) {
   const [selectedBlock, setSelectedBlock] = useState<string | null>(null)
+  const [mobileTab, setMobileTab] = useState<MobileTab>('preview')
   const [globalStyles, setGlobalStyles] = useState(styles || {
     colors: {
       primary: '#007bff',
@@ -63,11 +66,52 @@ export default function StyleEditor({ content, styles, onContentChange, onStyles
   const selectedBlockData = content.find((b) => b.id === selectedBlock)
 
   return (
-    <div className="h-full flex">
+    <div className="h-full flex flex-col lg:flex-row">
+      {/* Mobile Tab Navigation */}
+      <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-2">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setMobileTab('preview')}
+            className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              mobileTab === 'preview'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700'
+            }`}
+          >
+            Preview
+          </button>
+          <button
+            onClick={() => setMobileTab('global')}
+            className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              mobileTab === 'global'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700'
+            }`}
+          >
+            Global
+          </button>
+          {selectedBlockData && (
+            <button
+              onClick={() => setMobileTab('block')}
+              className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                mobileTab === 'block'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700'
+              }`}
+            >
+              Block
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Global Styles Panel */}
-      <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
+      <div className={`
+        ${mobileTab === 'global' ? 'block' : 'hidden'} lg:block
+        w-full lg:w-80 bg-white lg:border-r border-gray-200 overflow-y-auto
+      `}>
         <div className="p-4">
-          <h3 className="font-semibold text-lg mb-4">Global Styles</h3>
+          <h3 className="font-semibold text-base md:text-lg mb-4">Global Styles</h3>
 
           {/* Colors */}
           <div className="mb-6">
@@ -164,7 +208,7 @@ export default function StyleEditor({ content, styles, onContentChange, onStyles
                 navigator.clipboard.writeText(css)
                 alert('CSS copied to clipboard!')
               }}
-              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded text-sm"
+              className="w-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 px-4 py-2 rounded text-sm touch-manipulation"
             >
               📋 Copy CSS
             </button>
@@ -173,128 +217,145 @@ export default function StyleEditor({ content, styles, onContentChange, onStyles
       </div>
 
       {/* Preview Canvas */}
-      <div className="flex-1 overflow-y-auto bg-gray-50">
-        <div className="p-8">
-          <div
-            className="max-w-5xl mx-auto bg-white rounded-lg shadow-sm p-8"
-            style={{
-              color: globalStyles.colors.text,
-              backgroundColor: globalStyles.colors.background,
-              fontFamily: globalStyles.typography.fontFamily,
-              fontSize: globalStyles.typography.baseFontSize,
-              lineHeight: globalStyles.typography.lineHeight
-            }}
-          >
-            {content.length === 0 ? (
-              <div className="text-center py-16 text-gray-500">
-                <p>No content to style</p>
-                <p className="text-sm mt-2">Switch to Block Editor or Component Library to add content first</p>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                {content.map((block) => (
-                  <div
-                    key={block.id}
-                    onClick={() => setSelectedBlock(block.id)}
-                    className={`cursor-pointer transition-all ${
-                      selectedBlock === block.id ? 'ring-2 ring-blue-500 rounded p-2' : ''
-                    }`}
-                  >
-                    <BlockPreview block={block} globalStyles={globalStyles} />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+      <div className={`
+        ${mobileTab === 'preview' ? 'block' : 'hidden'} lg:block
+        flex-1 overflow-y-auto bg-gray-50 p-4 md:p-8
+      `}>
+        <div
+          className="max-w-5xl mx-auto bg-white rounded-lg shadow-sm p-4 md:p-8"
+          style={{
+            color: globalStyles.colors.text,
+            backgroundColor: globalStyles.colors.background,
+            fontFamily: globalStyles.typography.fontFamily,
+            fontSize: globalStyles.typography.baseFontSize,
+            lineHeight: globalStyles.typography.lineHeight
+          }}
+        >
+          {content.length === 0 ? (
+            <div className="text-center py-12 md:py-16 text-gray-500">
+              <p className="text-sm md:text-base">No content to style</p>
+              <p className="text-xs md:text-sm mt-2">Switch to Block Editor or Component Library to add content first</p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {content.map((block) => (
+                <div
+                  key={block.id}
+                  onClick={() => {
+                    setSelectedBlock(block.id)
+                    setMobileTab('block')
+                  }}
+                  className={`cursor-pointer transition-all touch-manipulation rounded ${
+                    selectedBlock === block.id ? 'ring-2 ring-blue-500 p-2' : ''
+                  }`}
+                >
+                  <BlockPreview block={block} globalStyles={globalStyles} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
       {/* Block Styles Panel */}
       {selectedBlockData && (
-        <div className="w-80 bg-white border-l border-gray-200 overflow-y-auto p-4">
-          <h3 className="font-semibold text-lg mb-4">Block Styles</h3>
-          <p className="text-sm text-gray-600 mb-4">
-            Styling: <strong>{selectedBlockData.type}</strong> block
-          </p>
+        <div className={`
+          ${mobileTab === 'block' ? 'block' : 'hidden'} lg:block
+          w-full lg:w-80 bg-white lg:border-l border-gray-200 overflow-y-auto
+        `}>
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-semibold text-base md:text-lg">Block Styles</h3>
+              <button
+                onClick={() => setMobileTab('preview')}
+                className="lg:hidden text-gray-500 hover:text-gray-700 text-xl"
+              >
+                ✕
+              </button>
+            </div>
+            <p className="text-xs md:text-sm text-gray-600 mb-4">
+              Styling: <strong>{selectedBlockData.type}</strong> block
+            </p>
 
-          <div className="space-y-4">
-            <StyleInput
-              label="Text Color"
-              type="color"
-              value={selectedBlockData.styles?.color || '#000000'}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'color', value)}
-            />
-            <StyleInput
-              label="Background"
-              type="color"
-              value={selectedBlockData.styles?.['background-color'] || '#ffffff'}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'background-color', value)}
-            />
-            <StyleInput
-              label="Font Size"
-              type="text"
-              value={selectedBlockData.styles?.['font-size'] || ''}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'font-size', value)}
-              placeholder="16px"
-            />
-            <StyleInput
-              label="Font Weight"
-              type="select"
-              value={selectedBlockData.styles?.['font-weight'] || 'normal'}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'font-weight', value)}
-              options={[
-                { value: 'normal', label: 'Normal' },
-                { value: 'bold', label: 'Bold' },
-                { value: '300', label: 'Light' },
-                { value: '600', label: 'Semi-bold' }
-              ]}
-            />
-            <StyleInput
-              label="Margin"
-              type="text"
-              value={selectedBlockData.styles?.margin || ''}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'margin', value)}
-              placeholder="0"
-            />
-            <StyleInput
-              label="Padding"
-              type="text"
-              value={selectedBlockData.styles?.padding || ''}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'padding', value)}
-              placeholder="0"
-            />
-            <StyleInput
-              label="Border Radius"
-              type="text"
-              value={selectedBlockData.styles?.['border-radius'] || ''}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'border-radius', value)}
-              placeholder="0"
-            />
-            <StyleInput
-              label="Border"
-              type="text"
-              value={selectedBlockData.styles?.border || ''}
-              onChange={(value) => updateBlockStyle(selectedBlock!, 'border', value)}
-              placeholder="1px solid #ccc"
-            />
-          </div>
+            <div className="space-y-4">
+              <StyleInput
+                label="Text Color"
+                type="color"
+                value={selectedBlockData.styles?.color || '#000000'}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'color', value)}
+              />
+              <StyleInput
+                label="Background"
+                type="color"
+                value={selectedBlockData.styles?.['background-color'] || '#ffffff'}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'background-color', value)}
+              />
+              <StyleInput
+                label="Font Size"
+                type="text"
+                value={selectedBlockData.styles?.['font-size'] || ''}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'font-size', value)}
+                placeholder="16px"
+              />
+              <StyleInput
+                label="Font Weight"
+                type="select"
+                value={selectedBlockData.styles?.['font-weight'] || 'normal'}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'font-weight', value)}
+                options={[
+                  { value: 'normal', label: 'Normal' },
+                  { value: 'bold', label: 'Bold' },
+                  { value: '300', label: 'Light' },
+                  { value: '600', label: 'Semi-bold' }
+                ]}
+              />
+              <StyleInput
+                label="Margin"
+                type="text"
+                value={selectedBlockData.styles?.margin || ''}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'margin', value)}
+                placeholder="0"
+              />
+              <StyleInput
+                label="Padding"
+                type="text"
+                value={selectedBlockData.styles?.padding || ''}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'padding', value)}
+                placeholder="0"
+              />
+              <StyleInput
+                label="Border Radius"
+                type="text"
+                value={selectedBlockData.styles?.['border-radius'] || ''}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'border-radius', value)}
+                placeholder="0"
+              />
+              <StyleInput
+                label="Border"
+                type="text"
+                value={selectedBlockData.styles?.border || ''}
+                onChange={(value) => updateBlockStyle(selectedBlock!, 'border', value)}
+                placeholder="1px solid #ccc"
+              />
+            </div>
 
-          <button
-            onClick={() => {
-              if (confirm('Reset all styles for this block?')) {
-                onContentChange(
-                  content.map((block) =>
-                    block.id === selectedBlock
-                      ? { ...block, styles: {} }
-                      : block
+            <button
+              onClick={() => {
+                if (confirm('Reset all styles for this block?')) {
+                  onContentChange(
+                    content.map((block) =>
+                      block.id === selectedBlock
+                        ? { ...block, styles: {} }
+                        : block
+                    )
                   )
-                )
-              }
-            }}
-            className="w-full mt-6 bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded text-sm"
-          >
-            Reset Block Styles
-          </button>
+                }
+              }}
+              className="w-full mt-6 bg-red-100 hover:bg-red-200 active:bg-red-300 text-red-700 px-4 py-2 rounded text-sm touch-manipulation"
+            >
+              Reset Block Styles
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -366,7 +427,7 @@ function BlockPreview({ block, globalStyles }: { block: Block; globalStyles: any
     case 'heading':
       const HeadingTag = `h${block.settings?.level || 2}` as keyof JSX.IntrinsicElements
       return (
-        <HeadingTag style={combinedStyles}>
+        <HeadingTag className="text-xl md:text-2xl lg:text-3xl" style={combinedStyles}>
           {block.content.text || 'Heading'}
         </HeadingTag>
       )
@@ -374,6 +435,7 @@ function BlockPreview({ block, globalStyles }: { block: Block; globalStyles: any
     case 'text':
       return (
         <div
+          className="prose prose-sm md:prose max-w-none"
           style={combinedStyles}
           dangerouslySetInnerHTML={{ __html: block.content.html || '<p>Text content</p>' }}
         />
@@ -386,14 +448,15 @@ function BlockPreview({ block, globalStyles }: { block: Block; globalStyles: any
             <img
               src={block.content.src}
               alt={block.content.alt}
+              className="max-w-full h-auto"
               style={{ maxWidth: '100%', ...combinedStyles }}
             />
           ) : (
             <div
-              className="bg-gray-100 h-48 flex items-center justify-center"
+              className="bg-gray-100 h-32 md:h-48 flex items-center justify-center rounded"
               style={combinedStyles}
             >
-              <span className="text-gray-400">Image placeholder</span>
+              <span className="text-gray-400 text-sm">Image placeholder</span>
             </div>
           )}
         </div>
@@ -404,6 +467,7 @@ function BlockPreview({ block, globalStyles }: { block: Block; globalStyles: any
         <div style={{ textAlign: block.settings?.align || 'left' }}>
           <a
             href={block.content.url || '#'}
+            className="inline-block px-4 md:px-6 py-2 md:py-3 rounded text-sm md:text-base"
             style={{
               display: 'inline-block',
               padding: '12px 24px',
@@ -423,10 +487,10 @@ function BlockPreview({ block, globalStyles }: { block: Block; globalStyles: any
       return <div style={{ height: block.settings?.height || '40px', ...combinedStyles }} />
 
     case 'divider':
-      return <hr style={{ border: 'none', borderTop: '1px solid #ccc', ...combinedStyles }} />
+      return <hr className="border-t border-gray-300 my-2 md:my-4" style={combinedStyles} />
 
     default:
-      return <div style={combinedStyles}>{block.type} block</div>
+      return <div className="text-sm" style={combinedStyles}>{block.type} block</div>
   }
 }
 

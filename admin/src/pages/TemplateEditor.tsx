@@ -112,47 +112,52 @@ export default function TemplateEditor() {
   return (
     <div className="h-screen flex flex-col bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <div className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 md:py-4">
+        {/* Mobile: Stacked Layout / Desktop: Horizontal */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          {/* Top Row */}
+          <div className="flex items-center gap-3 md:gap-4">
             <button
               onClick={() => navigate(`/admin/${siteId}/templates`)}
-              className="text-gray-600 hover:text-gray-900"
+              className="text-gray-600 hover:text-gray-900 text-sm md:text-base"
             >
               ← Back
             </button>
-            <div>
+            <div className="flex-1 md:flex-initial">
               <input
                 type="text"
                 value={template.name}
                 onChange={(e) => setTemplate({ ...template, name: e.target.value })}
-                className="text-xl font-bold bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none"
+                className="text-base md:text-xl font-bold bg-transparent border-b-2 border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none w-full"
               />
-              <div className="text-sm text-gray-500">
+              <div className="text-xs md:text-sm text-gray-500">
                 {template.type} • {template.mode} mode
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <label className="flex items-center gap-2 text-sm">
+
+          {/* Bottom Row / Right Side */}
+          <div className="flex items-center justify-between md:justify-end gap-2 md:gap-3">
+            <label className="flex items-center gap-2 text-xs md:text-sm">
               <input
                 type="checkbox"
                 checked={template.isDefault}
                 onChange={(e) => setTemplate({ ...template, isDefault: e.target.checked })}
                 className="rounded"
               />
-              Set as default
+              <span className="hidden sm:inline">Set as default</span>
+              <span className="sm:hidden">Default</span>
             </label>
             <button
               onClick={() => setShowPreview(!showPreview)}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-3 md:px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-xs md:text-sm"
             >
               {showPreview ? '✏️ Edit' : '👁️ Preview'}
             </button>
             <button
               onClick={saveTemplate}
               disabled={saving}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+              className="bg-blue-600 text-white px-4 md:px-6 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 text-xs md:text-sm"
             >
               {saving ? 'Saving...' : 'Save'}
             </button>
@@ -161,10 +166,10 @@ export default function TemplateEditor() {
 
         {/* Mode Switcher (only for hybrid mode) */}
         {isHybridMode && (
-          <div className="flex gap-2 mt-4">
+          <div className="flex gap-2 mt-3 md:mt-4 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
             <button
               onClick={() => setActiveMode('block')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-3 md:px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-xs md:text-sm ${
                 activeMode === 'block'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -174,7 +179,7 @@ export default function TemplateEditor() {
             </button>
             <button
               onClick={() => setActiveMode('component')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-3 md:px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-xs md:text-sm ${
                 activeMode === 'component'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -184,7 +189,7 @@ export default function TemplateEditor() {
             </button>
             <button
               onClick={() => setActiveMode('style')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-3 md:px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-xs md:text-sm ${
                 activeMode === 'style'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
