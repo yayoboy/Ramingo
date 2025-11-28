@@ -8,6 +8,8 @@ import { Sites } from './pages/Sites'
 import { Sections } from './pages/Sections'
 import { Entries } from './pages/Entries'
 import EntryEditor from './pages/EntryEditor'
+import TemplateBuilder from './pages/TemplateBuilder'
+import TemplateEditor from './pages/TemplateEditor'
 
 function App() {
   return (
@@ -40,6 +42,14 @@ function App() {
             <Route
               path="sites/:siteId/sections/:sectionId/entries/:entryId/edit"
               element={<EntryEditor />}
+            />
+            <Route
+              path="sites/:siteId/templates"
+              element={<TemplateBuilder />}
+            />
+            <Route
+              path="sites/:siteId/templates/:templateId"
+              element={<TemplateEditor />}
             />
           </Route>
 

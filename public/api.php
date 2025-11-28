@@ -122,6 +122,15 @@ $router->put('/api/sites/{siteId}/settings', [\Ramingo\Api\Controllers\SettingsC
 $router->get('/api/sites/{siteId}/settings/theme', [\Ramingo\Api\Controllers\SettingsController::class, 'getTheme']);
 $router->put('/api/sites/{siteId}/settings/theme', [\Ramingo\Api\Controllers\SettingsController::class, 'updateTheme']);
 
+// Templates (Visual Template Builder)
+$router->get('/api/sites/{siteId}/templates', [\Ramingo\Api\Controllers\TemplateController::class, 'index']);
+$router->get('/api/sites/{siteId}/templates/{id}', [\Ramingo\Api\Controllers\TemplateController::class, 'show']);
+$router->post('/api/sites/{siteId}/templates', [\Ramingo\Api\Controllers\TemplateController::class, 'store']);
+$router->put('/api/sites/{siteId}/templates/{id}', [\Ramingo\Api\Controllers\TemplateController::class, 'update']);
+$router->delete('/api/sites/{siteId}/templates/{id}', [\Ramingo\Api\Controllers\TemplateController::class, 'destroy']);
+$router->post('/api/sites/{siteId}/templates/{id}/duplicate', [\Ramingo\Api\Controllers\TemplateController::class, 'duplicate']);
+$router->get('/api/sites/{siteId}/templates/default/{type}', [\Ramingo\Api\Controllers\TemplateController::class, 'getDefault']);
+
 // Test endpoints
 $router->get('/api/test', function(Request $request) {
     return Response::json([

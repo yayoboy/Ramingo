@@ -37,14 +37,19 @@ class Engine
     }
 
     /**
-     * Render a template
+     * Render a template (supports both PHP and JSON templates)
      */
     public function render(string $template, array $data = []): string
     {
         // Merge data
         $this->data = array_merge($this->data, $data);
 
-        // Render template
+        // Check if template is a JSON template (array format)
+        if (is_array($template)) {
+            return $this->renderJsonTemplate($template, $this->data);
+        }
+
+        // Render PHP template
         $templatePath = "{$this->themePath}/{$template}.php";
 
         if (!file_exists($templatePath)) {
@@ -52,6 +57,32 @@ class Engine
         }
 
         $this->content = $this->renderFile($templatePath, $this->data);
+
+        // Render with layout if specified
+        if ($this->layout) {
+            $layoutPath = "{$this->themePath}/layouts/{$this->layout}.php";
+
+            if (!file_exists($layoutPath)) {
+                throw new \Exception("Layout not found: {$this->layout}");
+            }
+
+            return $this->renderFile($layoutPath, array_merge($this->data, [
+                'content' => $this->content
+            ]));
+        }
+
+        return $this->content;
+    }
+
+    /**
+     * Render JSON template (visual template builder)
+     */
+    public function renderJsonTemplate(array $template, array $data = []): string
+    {
+        $blocks = $template['content'] ?? [];
+        $renderer = new BlockRenderer(array_merge($this->data, $data));
+
+        $this->content = $renderer->render($blocks);
 
         // Render with layout if specified
         if ($this->layout) {

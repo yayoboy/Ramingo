@@ -1,0 +1,40 @@
+{
+    "id": "tpl_1816e1bb1a33484b",
+    "siteId": "default",
+    "name": "Hero Template",
+    "slug": "hero-template",
+    "mode": "block",
+    "type": "page",
+    "content": [
+        {
+            "id": "block-1",
+            "type": "heading",
+            "content": {
+                "text": "Welcome to Ramingo"
+            },
+            "settings": {
+                "level": 1,
+                "align": "center"
+            }
+        },
+        {
+            "id": "block-2",
+            "type": "text",
+            "content": {
+                "html": "<p>A modern flat-file CMS with visual template building</p>"
+            },
+            "settings": {
+                "align": "center"
+            }
+        }
+    ],
+    "styles": [],
+    "settings": {
+        "width": "full",
+        "spacing": "normal"
+    },
+    "thumbnail": null,
+    "isDefault": false,
+    "createdAt": "2025-11-28T10:13:24+00:00",
+    "updatedAt": "2025-11-28T10:13:46+00:00"
+}
